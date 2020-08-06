@@ -43,7 +43,30 @@ app.get("/api/users/:id", (req,res) => {
       }
 })
 
+//delete user /api/users/:id
+app.delete("/api/users/:id", (req,res) => {
+   const {id} = req.params;
 
+   const remove=db.deleteUser(id)
+      if(remove){
+         res.status(204).end();
+      }else{
+         res.status(404).json({successful: "user deleted"})
+      }
+}); //delete user /api/users/:id
+
+//put request
+app.put("/api/users/:id", (req,res) => {
+   const {id} = req.params;
+   const users = req.body;
+
+   const updated = db.updateUser(id,users)
+      if(updated){
+         res.status(200).json({ success: "user updated"})
+      }else{
+         res.status(404).json({ unsuccessful: "user id not found"})
+      }
+}); //put request to /api/users/:id
 
 
 
